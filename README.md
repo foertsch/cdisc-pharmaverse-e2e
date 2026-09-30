@@ -15,8 +15,10 @@ This is a learning project. The data is the public CDISC pilot (CDISCPILOT01) as
 | ADaM | ADSL | admiral | values match `pharmaverseadam::adsl` on all 55 shared variables; labels pending |
 | ADaM | ADAE, ADLB, ADTTE | admiral | planned |
 | Metadata | specs, labels, XPT | metacore, metatools, xportr | planned |
-| TLFs | demographics, AE summary, lab shift, Kaplan-Meier | rtables, tern | planned |
-| App | safety + efficacy review | teal, teal.modules.clinical | planned |
+| Tables | demographics, AE summary, lab grade shift | rtables, tern | planned |
+| Figures | Kaplan-Meier, subgroup forest plot, mean lab over time, individual patient trajectories | tern | planned |
+| Figures | eDISH liver-safety plot (peak ALT vs peak bilirubin, ×ULN) | ggplot2 | planned |
+| App | safety + efficacy review, patient profiles | teal, teal.modules.clinical | planned |
 
 ## Quick start
 
@@ -33,6 +35,10 @@ Packages: `admiral`, `pharmaversesdtm`, `pharmaverseadam`, `diffdf`, `dplyr`, `l
 - `adam/`: one program per dataset, in the style of a study programming area. Each runs in its own R process (`run_all.R`), so nothing leaks between programs.
 - `R/qc.R`: `qc_compare()` wraps `diffdf` to compare a production dataset against its reference by key variables and writes a plain-text report.
 - `tests/testthat/`: three layers per dataset. Structure (one record per subject, all subjects present), derivation rules (for ADSL: treatment dates ordered, `TRTDURD` inclusive, `SAFFL` = Y exactly for treated subjects, screen failures excluded), and QC against the reference.
+
+## Walkthroughs
+
+- [ADSL](docs/adsl_walkthrough.md): every variable, its SDTM source, the rule that builds it, and the counts in this study
 
 ## QC findings so far
 

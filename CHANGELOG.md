@@ -12,3 +12,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `run_all.R`: runs each program in its own R process, then QC
 - `tests/testthat/test-adsl.R`: structure, derivation-rule and reference-QC tests for ADSL; label test skipped until the metadata stage
 - CI: build + tests + QC-report artifact, and a lintr job
+- `docs/adsl_walkthrough.md`: variable-by-variable ADSL walkthrough with study counts, the LSTALVDT finding, and exercises
+- README: figures and patient-profile stages added to the roadmap
