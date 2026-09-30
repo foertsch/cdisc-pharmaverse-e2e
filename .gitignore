@@ -1,0 +1,21 @@
+# Generated datasets and QC reports: rebuilt by run_all.R (CI regenerates them)
+outputs/adam/*
+outputs/qc/*
+!outputs/adam/.gitkeep
+!outputs/qc/.gitkeep
+
+# R session files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# R default graphics device dump
+Rplots.pdf
+
+# Local editor / agent config
+.claude/
+CLAUDE.local.md
+
+# macOS
+.DS_Store
