@@ -1,8 +1,10 @@
 # Generated datasets and QC reports: rebuilt by run_all.R (CI regenerates them)
 outputs/adam/*
 outputs/qc/*
+outputs/tlf/*
 !outputs/adam/.gitkeep
 !outputs/qc/.gitkeep
+!outputs/tlf/.gitkeep
 
 # R session files
 .Rhistory

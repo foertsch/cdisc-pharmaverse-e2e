@@ -9,7 +9,7 @@ on:
 
 jobs:
   pipeline:
-    name: Build ADaM + independent QC
+    name: Build ADaM + TLFs, independent QC
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +29,10 @@ jobs:
             any::dplyr
             any::lubridate
             any::stringr
+            any::tern
+            any::rtables
+            any::survival
+            any::ggplot2
             any::testthat
           dependencies: '"hard"'
 
@@ -42,8 +46,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: qc-reports
-          path: outputs/qc/
+          name: qc-reports-and-tlfs
+          path: |
+            outputs/qc/
+            outputs/tlf/
 
   lint:
     name: lintr
