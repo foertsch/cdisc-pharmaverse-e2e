@@ -15,21 +15,11 @@ library(stringr)
 
 # Load source datasets ----
 
-# Use e.g. haven::read_sas to read in .sas7bdat, or other suitable functions
-# as needed and assign to the variables below.
-# For illustration purposes read in admiral test data.
-
 dm <- pharmaversesdtm::dm
 ds <- pharmaversesdtm::ds
 ex <- pharmaversesdtm::ex
 ae <- pharmaversesdtm::ae
 lb <- pharmaversesdtm::lb
-
-# When SAS datasets are imported into R using haven::read_sas(), missing
-# character values from SAS appear as "" characters in R, instead of appearing
-# as NA values. Further details can be obtained via the following link:
-# https://pharmaverse.github.io/admiral/cran-release/articles/admiral.html#handling-of-missing-values # nolint
-
 
 dm <- convert_blanks_to_na(dm)
 ds <- convert_blanks_to_na(ds)
