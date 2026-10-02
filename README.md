@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![R](https://img.shields.io/badge/R-release-blue?logo=r)](https://www.r-project.org/)
 
-A clinical reporting pipeline in R, built end to end on the public CDISC pilot study with the [pharmaverse](https://pharmaverse.org/) packages: SDTM in, ADaM datasets out, then tables, listings and figures (TLFs) and an interactive review app. Every dataset is checked against an independent reference build, the way a QC programmer checks double-programmed output.
+A clinical reporting pipeline in R on the public CDISC pilot study, built with the [pharmaverse](https://pharmaverse.org/) packages. It takes SDTM data to ADaM datasets, then to tables, listings and figures (TLFs). Every dataset is compared against an independent build: the `pharmaverseadam` reference where one exists, otherwise a second derivation in plain dplyr.
 
 This is a learning project. The data is the public CDISC pilot (CDISCPILOT01, xanomeline transdermal patch in mild to moderate Alzheimer's disease) as shipped in `pharmaversesdtm`, not real patient data.
 
@@ -53,14 +53,11 @@ Packages: `admiral`, `pharmaversesdtm`, `pharmaverseadam`, `tern`, `rtables`, `s
 
 ## QC findings so far
 
-**ADSL** (306 subjects, 254 treated, 52 screen failures). Values are identical to the reference on every shared variable. Two explained differences:
-
-1. **Upstream SDTM drift.** `pharmaversesdtm` 1.5.0 added `ARMNRS` and `ACTARMUD` to DM. The reference ADSL (`pharmaverseadam` 1.3.0) was built from an earlier DM without them.
-2. **Labels.** The reference labels all 55 variables; this build carries only the 29 labels inherited from SDTM. Labels belong to the dataset specification and are applied in the metadata stage.
-
-**ADAE** (1,191 records). Values are identical on every shared variable except `DOSEON`, `DOSEU` and `LDOSEDTM`. The reference has `DOSEON` missing for 295 records where the subject was on drug at onset (e.g. subject 01-701-1146: an AE on 2013-06-10, inside an 81 mg dosing interval running 2013-06-04 to 2013-06-26). admiral 1.5.0 generalized the dose-at-onset derivation and dropped the bundled `ex_single` dataset (NEWS #3101, #3060); `pharmaverseadam` 1.3.0 was built before that. An independent derivation from EX in plain dplyr agrees with this build on all 1,191 records for both `DOSEON` and the last-dose date. A reference build is a check, not ground truth.
-
-**ADTTE / Cox.** `tern::summarize_coxreg()` defaults to exact ties while `survival::coxph()` and the KM annotation default to Efron, so a table and figure left at defaults disagree. Both are set to Efron explicitly.
+- ADSL (306 subjects, 254 treated, 52 screen failures): values are identical to the reference on every shared variable. Two differences, both explained:
+  - Upstream SDTM drift: `pharmaversesdtm` 1.5.0 added `ARMNRS` and `ACTARMUD` to DM. The reference ADSL (`pharmaverseadam` 1.3.0) was built from an earlier DM without them.
+  - Labels: the reference labels all 55 variables; this build carries only the 29 labels inherited from SDTM. Labels belong to the dataset specification and are applied in the metadata stage.
+- ADAE (1,191 records): values are identical on every shared variable except `DOSEON`, `DOSEU` and `LDOSEDTM`. The reference has `DOSEON` missing for 295 records where the subject was on drug at onset (e.g. subject 01-701-1146: an AE on 2013-06-10, inside an 81 mg dosing interval running 2013-06-04 to 2013-06-26). admiral 1.5.0 generalized the dose-at-onset derivation and dropped the bundled `ex_single` dataset (NEWS #3101, #3060); `pharmaverseadam` 1.3.0 was built before that. An independent derivation from EX in plain dplyr agrees with this build on all 1,191 records for both `DOSEON` and the last-dose date.
+- ADTTE and Cox: `tern::summarize_coxreg()` defaults to exact ties while `survival::coxph()` and the KM annotation default to Efron, so a table and figure left at defaults disagree. Both are set to Efron explicitly.
 
 ## Credits
 

@@ -1,6 +1,5 @@
-# Independent QC: compare a production dataset against a reference build, the
-# way a QC programmer checks a double-programmed dataset. Here the reference is
-# the pharmaverseadam build of the same dataset.
+# Independent QC: compare a production dataset against a reference build of the
+# same dataset (here pharmaverseadam) by key variables, using diffdf.
 
 #' Compare a production dataset against its reference
 #'
