@@ -48,16 +48,16 @@ Packages: `admiral`, `pharmaversesdtm`, `pharmaverseadam`, `tern`, `rtables`, `s
 
 ## Walkthroughs
 
-- [ADSL](docs/adsl_walkthrough.md): every variable, its SDTM source, the rule that builds it, and the counts in this study
+- [ADSL](docs/adsl_walkthrough.md):
 - [ADTTE and survival analysis](docs/adtte_walkthrough.md): the dermatologic-event endpoint, censoring, Kaplan-Meier, Cox model and proportional-hazards check
 
 ## QC findings so far
 
-- ADSL (306 subjects, 254 treated, 52 screen failures): values are identical to the reference on every shared variable. Two differences, both explained:
-  - Upstream SDTM drift: `pharmaversesdtm` 1.5.0 added `ARMNRS` and `ACTARMUD` to DM. The reference ADSL (`pharmaverseadam` 1.3.0) was built from an earlier DM without them.
+- ADSL (306 subjects, 254 treated, 52 screen failures): values are identical to the reference on every shared variable. Two differences found so far:
+  - Upstream SDTM labelling: `pharmaversesdtm` 1.5.0 added `ARMNRS` and `ACTARMUD` to DM. The reference ADSL (`pharmaverseadam` 1.3.0) was built from an earlier DM without them.
   - Labels: the reference labels all 55 variables; this build carries only the 29 labels inherited from SDTM. Labels belong to the dataset specification and are applied in the metadata stage.
-- ADAE (1,191 records): values are identical on every shared variable except `DOSEON`, `DOSEU` and `LDOSEDTM`. The reference has `DOSEON` missing for 295 records where the subject was on drug at onset (e.g. subject 01-701-1146: an AE on 2013-06-10, inside an 81 mg dosing interval running 2013-06-04 to 2013-06-26). admiral 1.5.0 generalized the dose-at-onset derivation and dropped the bundled `ex_single` dataset (NEWS #3101, #3060); `pharmaverseadam` 1.3.0 was built before that. An independent derivation from EX in plain dplyr agrees with this build on all 1,191 records for both `DOSEON` and the last-dose date.
-- ADTTE and Cox: `tern::summarize_coxreg()` defaults to exact ties while `survival::coxph()` and the KM annotation default to Efron, so a table and figure left at defaults disagree. Both are set to Efron explicitly.
+- ADAE (1,191 records): values are identical on every shared variable except `DOSEON`, `DOSEU` and `LDOSEDTM`. The reference has `DOSEON` missing for 295 records where the subject was on drug at onset. admiral 1.5.0 generalized the dose-at-onset derivation and dropped the bundled `ex_single` dataset (NEWS #3101, #3060); `pharmaverseadam` 1.3.0 was built before that. 
+
 
 ## Credits
 
